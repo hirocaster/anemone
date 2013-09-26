@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'ostruct'
 require 'webrick/cookie'
+require 'kconv'
 
 module Anemone
   class Page
@@ -74,7 +75,7 @@ module Anemone
     #
     def doc
       return @doc if @doc
-      @doc = Nokogiri::HTML(@body) if @body && html? rescue nil
+      @doc = Nokogiri::HTML(@body.toutf8, nil, 'UTF-8') if @body && html? rescue nil
     end
 
     #
